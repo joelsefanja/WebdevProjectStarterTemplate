@@ -1,0 +1,19 @@
+﻿@using nhlstendencafe.SessionExtensions
+
+@{
+    var session = Context.Request.HttpContext.Session;
+    var sessionId = session.GetObject<string>("SessionId");
+    
+    if (!string.IsNullOrEmpty(sessionId))
+    {
+        // Ober is logged in
+        
+        Layout = "_Layout_LoggedIn";
+
+    }
+    else
+    {
+        // Person is not logged in
+        Layout = "_Layout";
+    }
+}

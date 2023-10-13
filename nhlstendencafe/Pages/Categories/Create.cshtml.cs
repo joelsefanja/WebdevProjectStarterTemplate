@@ -21,7 +21,7 @@ public class Create : PageModel
             return Page();
         }
         
-        var createdCategory = new CategoryRepository().Add(Category);
+        new CategoryRepository().Add(Category);
         return RedirectToPage(nameof(System.Index));
     }
 

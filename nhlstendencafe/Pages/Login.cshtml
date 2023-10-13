@@ -1,0 +1,35 @@
+@page
+@using nhlstendencafe.Pages.Shared
+@model LoginModel
+
+@{
+    ViewData["Title"] = "inloggen";
+}
+
+<div class="container w-50">
+    <h2 class="mb-4">Log in met je account</h2>
+
+    <form method="post" class="">
+        <div class="form-group">
+            <label asp-for="@Model.loginCredentials.Email" class="form-label">E-mail</label>
+            <input asp-for="@Model.loginCredentials.Email" class="form-control"/>
+            <span asp-validation-for="@Model.loginCredentials.Email" class="text-danger"></span>
+        </div>
+    
+        <div class="form-group">
+            <label asp-for="@Model.loginCredentials.Password" class="form-label">Wachtwoord</label>
+            <input asp-for="@Model.loginCredentials.Password" type="password" class="form-control"/>
+            <span asp-validation-for="@Model.loginCredentials.Password" class="text-danger"></span>
+        </div>
+    
+        <div class="row mt-4">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100">Inloggen</button>
+            </div>
+            <div class="col-6">
+                <a class="btn btn-outline-primary w-100" href="/Register">Geen account?
+                    <span class="text-decoration-underline">Registreren</span></a>
+            </div>
+        </div>
+    </form>
+</div>

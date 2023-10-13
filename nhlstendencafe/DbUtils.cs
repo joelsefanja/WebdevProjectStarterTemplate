@@ -11,8 +11,7 @@ namespace nhlstendencafe
         
         public IDbConnection GetDbConnection()
         {
-            string connectionString = Program.Configuration
-                .GetConnectionString("nhlstendencafe.MySQL")!;
+            string connectionString = Program.Configuration.GetConnectionString("nhlstendencafe.MySQL")!;
 
             return new MySqlConnection(connectionString);
         }

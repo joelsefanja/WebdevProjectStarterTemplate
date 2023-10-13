@@ -1,0 +1,13 @@
+@page
+@using nhlstendencafe.Models
+@model OrderModel
+
+@{
+    ViewData["Title"] = "Order";
+    var Order = Model.Order;
+    var CategoriesWithProducts = Model.CategoriesWithProducts;
+    var activeTab = ViewData["ActiveTab"]?.ToString() ?? "categories"; // Set a default value if ActiveTab is not set
+}
+
+
+

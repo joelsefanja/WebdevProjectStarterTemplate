@@ -4,8 +4,8 @@ namespace nhlstendencafe.Models
 {
     public class Product
     {
-        [Required]
         public int ProductId { get; set; }
+
         [Required, MinLength(2), MaxLength(128)]
         public string Name { get; set; } = null!;
 

@@ -21,6 +21,16 @@ namespace nhlstendencafe.Repositories
             var category = connection.QuerySingle<Category>(sql, new { categoryId });
             return category;
         }
+        
+        public IEnumerable<Category> GetCategoryNames()
+        {
+            string sql = "SELECT CategoryId, Name FROM Category ORDER BY Name";
+
+            using var connection = GetConnection();
+            var categories = connection.Query<Category>(sql);
+            return categories;
+        }
+
 
         public IEnumerable<Category> Get()
         {
@@ -35,11 +45,6 @@ namespace nhlstendencafe.Repositories
         
         public IEnumerable<Category> GetCategoriesWithProducts()
         {
-            //het vullen van een lijst met categorieën is lastig met dapper (parent (Cagegory) with children (Products from Category))
-            //ik heb idee van stackoverflow wat aangepast om het ook met LEFT JOIN te laten werken
-
-            //https://stackoverflow.com/questions/6379155/multi-mapper-to-create-object-hierarchy#6380756
-            //https://stackoverflow.com/questions/9350467/how-do-i-write-one-to-many-query-in-dapper-net
             
             string sql = @"SELECT * FROM 
                     Category as C LEFT JOIN Product 

@@ -26,11 +26,22 @@
                    <li class="nav-item">
                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                    </li>
-             <li class="nav-item">
-                       <a class="btn btn-primary" asp-area="" asp-page="/Login">Inloggen</a>
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle text-dark" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categoriën</a>
+                       <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                           <li><a class="dropdown-item" href="/Categories/Index">Overzicht</a></li>
+                           <li><a class="dropdown-item" href="/Categories/Create">Aanmaken</a></li>
+                       </ul>
+                   </li>
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle text-dark" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Producten</a>
+                       <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                           <li><a class="dropdown-item" href="/Products/Index">Overzicht</a></li>
+                           <li><a class="dropdown-item" href="/Products/Create">Aanmaken</a></li>
+                       </ul>
                    </li>
                    <li class="nav-item">
-                       <a class="btn btn-outline-primary" asp-area="" asp-page="/Register">Registreren</a>
+                       <a class="btn btn-primary" asp-area="" asp-page="/Index">Uitloggen</a>
                    </li>
                </ul>
            </div>

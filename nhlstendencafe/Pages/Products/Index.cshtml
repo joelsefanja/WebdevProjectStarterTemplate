@@ -1,0 +1,27 @@
+@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using nlstendencafe.Pages.Products
+@model nhlstendencafe.Pages.Products.Index
+
+<div class="row">
+    <div class="col">
+        <h1>Display Products</h1>
+
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Product</a>
+        <hr>
+        <table class="table table-striped">
+            <tbody>
+            @foreach (var product in @Model.products){
+                <tr>
+                    <td>@product.Name</td>
+                    <td>
+                        <a asp-page="@nameof(Delete)" asp-route-productId="@product.ProductId" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(Update)" asp-route-productId="@product.ProductId" class="btn btn-info">Update</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>

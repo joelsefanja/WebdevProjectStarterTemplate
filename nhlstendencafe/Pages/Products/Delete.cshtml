@@ -1,0 +1,13 @@
+@page "{productId:int}"
+@model nhlstendencafe.Pages.Products.Delete
+
+<div class="row">
+    <div class="col">
+        <h1>Are you sure to delete product: @(Model.product.Name)?</h1>
+        <hr>
+        <form method="POST">
+            <button asp-page-handler="Delete" class="btn btn-success">Yes</button>
+            <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+        </form>        
+    </div>
+</div>
