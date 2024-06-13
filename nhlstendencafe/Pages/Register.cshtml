@@ -10,22 +10,37 @@
     <h2 class="mb-4">Maak een account</h2>
 
     <form method="post" class="">
+      
+     <div class="form-group">
+               <label asp-for="@Model.user.FirstName" class="form-label">Voornaam</label>
+               <input asp-for="@Model.user.FirstName" type="text" class="form-control"/>
+               <span asp-validation-for="@Model.user.FirstName" class="text-danger"></span>
+               
+           </div>
+         
         <div class="form-group">
-            <label asp-for="@Model.registerCredentials.Email" class="form-label">E-mail</label>
-            <input asp-for="@Model.registerCredentials.Email" class="form-control"/>
-            <span asp-validation-for="@Model.registerCredentials.Email" class="text-danger"></span>
+            <label asp-for="@Model.user.LastName" class="form-label">Achternaam</label>
+            <input asp-for="@Model.user.LastName" type="text" class="form-control"/>
+            <span asp-validation-for="@Model.user.LastName" class="text-danger"></span>
+            
+        </div>
+        
+      <div class="form-group">
+            <label asp-for="@Model.user.Email" class="form-label">E-mail</label>
+            <input asp-for="@Model.user.Email" type="text" class="form-control"/>
+            <span asp-validation-for="@Model.user.Email" class="text-danger"></span>
+            </div>
+       
+        <div class="form-group">
+            <label asp-for="@Model.user.Password" class="form-label">Wachtwoord</label>
+            <input asp-for="@Model.user.Password" type="password" class="form-control"/>
+            <span asp-validation-for="@Model.user.Password" class="text-danger"></span>
         </div>
    
         <div class="form-group">
-            <label asp-for="@Model.registerCredentials.Password" class="form-label">Wachtwoord</label>
-            <input asp-for="@Model.registerCredentials.Password" type="password" class="form-control"/>
-            <span asp-validation-for="@Model.registerCredentials.Password" class="text-danger"></span>
-        </div>
-   
-        <div class="form-group">
-            <label asp-for="@Model.registerCredentials.ConfirmPassword" class="form-label">Bevestig wachtwoord</label>
-            <input asp-for="@Model.registerCredentials.ConfirmPassword" type="password" class="form-control"/>
-            <span asp-validation-for="@Model.registerCredentials.ConfirmPassword" class="text-danger"></span>
+            <label asp-for="@Model.user.ConfirmPassword" class="form-label">Bevestig wachtwoord</label>
+            <input asp-for="@Model.user.ConfirmPassword" type="password" class="form-control"/>
+            <span asp-validation-for="@Model.user.ConfirmPassword" class="text-danger"></span>
         </div>
    
         <div class="row mt-4">

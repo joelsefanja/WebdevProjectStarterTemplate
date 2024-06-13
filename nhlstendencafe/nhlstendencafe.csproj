@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="CookieExtentions" />
+      <Folder Include="Pages\Shared\Views\" />
     </ItemGroup>
 
 </Project>

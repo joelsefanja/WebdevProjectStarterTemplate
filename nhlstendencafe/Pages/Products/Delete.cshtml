@@ -1,13 +1,23 @@
-@page "{productId:int}"
+@page "{productId:int}/{ProductCount:int}"
 @model nhlstendencafe.Pages.Products.Delete
 
 <div class="row">
     <div class="col">
-        <h1>Are you sure to delete product: @(Model.product.Name)?</h1>
+        @if (@Model.ProductCount == 1)
+        {
+            <h1 class="text-danger">Dit is het laatste product in deze categorie.</h1>
+            <h1>
+                Wil je de categorie ook verwijderen?
+            </h1>
+        }
+        else
+        {
+            <h1>Wil je @(Model.Product.Name) echt verwijderen uit het menu?</h1>
+        }
         <hr>
         <form method="POST">
-            <button asp-page-handler="Delete" class="btn btn-success">Yes</button>
-            <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
-        </form>        
+            <button asp-page-handler="Delete" class="btn btn-danger">Verwijder</button>
+            <button asp-page-handler="Cancel" class="btn btn-outline-secondary">Annuleren</button>
+        </form>
     </div>
 </div>

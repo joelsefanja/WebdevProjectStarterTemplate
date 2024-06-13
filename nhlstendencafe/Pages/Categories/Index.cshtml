@@ -1,27 +1,42 @@
 @page
-@using nlstendencafe.Pages.Categories
 @model nhlstendencafe.Pages.Categories.Index
 
-<div class="row">
-    <div class="col">
-        <h1>Display Categories</h1>
+<h1>Categorieën</h1>
+<a asp-page="Create" class="btn btn-primary">Maak een nieuwe categorie</a>
+<hr>
 
-        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Category</a>
-        <hr>
-        <table class="table table-striped">
-            <tbody>
-            @foreach (var category in Model.Categories)
-            {
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>@category.Name</td>
-                    <td>
-                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@category.CategoryId" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-categoryId="@category.CategoryId" class="btn btn-info">Update</a>
-                    </td>
+                    <th>Categorie</th>
+                    <th>Aantal producten</th>
+                    <th>Bewerken</th>
                 </tr>
-            }
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                @foreach (var category in Model.Categories)
+                {
+                    <tr class="table-row">
+                        <td>@category.Name</td>
+                        <td>@category.Products.Count()</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-page="Update" asp-route-categoryId="@category.CategoryId" asp-route-category="@category.Name" class="btn-sm btn-primary me-2">Bijwerken</a>
+                                <a asp-page="Delete" asp-route-categoryId="@category.CategoryId" asp-route-category="@category.Name" class="btn-sm btn-danger">Verwijderen</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="/js/tableButtons.js"></script>
+}

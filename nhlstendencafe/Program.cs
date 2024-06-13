@@ -1,25 +1,44 @@
-using System.Data.Common;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Razor;
+using nhlstendencafe.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Account");
+    options.Conventions.AuthorizeFolder("/Categories");
+    options.Conventions.AuthorizeFolder("/Order");
+    options.Conventions.AuthorizeFolder("/Products");
+});
+
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 builder.Services.AddMemoryCache();
-builder.Services.AddMvc();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
+
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.PageViewLocationFormats.Add("/Pages/Partials/{0}" + RazorViewEngine.ViewExtension);
+});
+
+builder.Services.AddAuthentication().AddCookie("OberAuthentication", options =>
     {
+        options.Cookie.Name = "OberAuthCookie";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.LoginPath = "/Login/";
         options.SlidingExpiration = true;
         options.AccessDeniedPath = "/Forbidden/";
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.HttpOnly = false;
+     
     });
 
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<OrderRepository>();
 
 
 var app = builder.Build();
@@ -36,30 +55,26 @@ if (!app.Environment.IsDevelopment())
 
 var cookiePolicyOptions = new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.Strict,
+    MinimumSameSitePolicy = SameSiteMode.None,
 };
 
-app.UseSession();
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-app.UseAuthorization();
 app.UseAuthentication();
-
+app.UseAuthorization();
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
 app.UseCookiePolicy(cookiePolicyOptions);
 
 app.Run();
 
-
 namespace nhlstendencafe
 {
     partial class Program
-    {
+    { 
         public static IConfiguration Configuration { get; set; } = null!;
     }
 }

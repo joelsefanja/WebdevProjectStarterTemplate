@@ -76,12 +76,6 @@ namespace nhlstendencafe.Repositories
             //ophalen van de categorieën uit de categoryLookup
             var result = categoryLookup.Values.OrderBy(x => x.Name); 
             
-            //sorteren van producten binnen een category, gebruik liever ORDER BY in de SQL query om de product te sorteren binnen een category
-            // foreach (var category in result)
-            // {
-            //     category.Products = category.Products.OrderBy(x => x.Name).ToList();
-            // }
-            
             return result;
         }
 
@@ -117,6 +111,18 @@ namespace nhlstendencafe.Repositories
             using var connection = GetConnection();
             var updatedCategory = connection.QuerySingle<Category>(sql, category);
             return updatedCategory;
+        }
+        
+        public bool CategoryHasProducts(int categoryId)
+        {
+            string sql = @"
+                SELECT COUNT(*) 
+                FROM Product 
+                WHERE CategoryId = @categoryId";
+            
+            using var connection = GetConnection();
+            int productCount = connection.ExecuteScalar<int>(sql, new { categoryId });
+            return productCount > 0;
         }
     }
 }

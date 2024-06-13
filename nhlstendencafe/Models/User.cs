@@ -5,6 +5,12 @@ namespace nhlstendencafe.Models
     public class User
     {
         public int Id { get; set; }
+        
+        [Required(ErrorMessage = "Voornaam is verplicht")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Achternaam is verplicht")]
+        public string LastName { get; set; }
     
         [Required(ErrorMessage = "E-mail is verplicht")]
         [EmailAddress(ErrorMessage = "Ongeldig e-mail adres")]
@@ -19,6 +25,6 @@ namespace nhlstendencafe.Models
         [Compare("Password", ErrorMessage = "Wachtwoorden komen niet overeen")]
         public string ConfirmPassword { get; set; }
 
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }

@@ -1,27 +1,50 @@
 @page
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using nlstendencafe.Pages.Products
 @model nhlstendencafe.Pages.Products.Index
 
-<div class="row">
-    <div class="col">
-        <h1>Display Products</h1>
+<div class="container mt-5">
+    <h1>Producten</h1>
+    <a asp-page="Create" asp-route-categoryId="@Model.CategoryId" class="btn btn-primary">Maak een nieuw product</a>
+    <form method="post" asp-page="Categories/Create" class="d-inline-block">
+        <input type="hidden" name="returnUrl" value="/Products/Index"/>
+        <button type="submit" class="btn-outline-secondary btn d-inline-block" id="nav-createCategory-tab" asp-page-handler="NewCategory" role="tab">Nieuwe categorie</button>
+    </form>
+    <hr>
+    <!-- Tabbladen -->
+<nav>
+    <div class="nav nav-tabs block" id="categorieTabs" role="tablist">
+        @foreach (var category in Model.Categories)
+        {
+            <button class="nav-link @(Model.CategoryId == category.CategoryId ? "active" : "")" id="@($"nav-{category.CategoryId}-tab")" data-bs-toggle="tab" role="tab" data-bs-target="@($"#category-{category.CategoryId}")">@category.Name</button>
+        }
+    </div>
+</nav>
 
-        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Product</a>
-        <hr>
-        <table class="table table-striped">
-            <tbody>
-            @foreach (var product in @Model.products){
-                <tr>
-                    <td>@product.Name</td>
-                    <td>
-                        <a asp-page="@nameof(Delete)" asp-route-productId="@product.ProductId" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-productId="@product.ProductId" class="btn btn-info">Update</a>
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
-
+    <!-- Tab inhoud -->
+    <div class="tab-content mt-3" id="categorieTabsContent">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="tab-pane fade @(category.CategoryId == Model.CategoryId ? "show active" : "")" id="@($"category-{category.CategoryId}")" role="tabpanel" aria-labelledby="@($"nav-{category.CategoryId}-tab")">
+                <div class="row">
+                    @foreach (var product in Model.ProductWithCategory.Where(p => p.CategoryId == category.CategoryId))
+                    {
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">@product.Name</h6>
+                                    <p class="card-text">€@product.Price</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <a asp-page="@nameof(Update)" asp-route-productId="@product.ProductId" class="btn btn-info btn-sm mr-2">Update</a>
+                                            <a asp-page="@nameof(Delete)" asp-route-productId="@product.ProductId" asp-route-productCount="@Model.ProductWithCategory.Count(p => p.CategoryId == category.CategoryId)" class="btn btn-danger btn-sm">Verwijder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    
     </div>
 </div>

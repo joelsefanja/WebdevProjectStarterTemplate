@@ -1,13 +1,25 @@
-@page "{categoryId:int}"
+@page "{categoryId:int}/{category}"
 @model nhlstendencafe.Pages.Categories.Delete
 
 <div class="row">
     <div class="col">
-        <h1>Are you sure to delete Category @(Model.Category.Name)?</h1>
-        <hr>
-        <form method="POST">
-            <button asp-page-handler="Delete" class="btn btn-success">Yes</button>
-            <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+        @if (Model.CategoryHasProducts)
+        {
+            <h1 class="text-danger">Deze categorie heeft nog producten.</h1>
+            <h2>Wil je de categorie en producten verwijderen?</h2>
+        }
+        else
+        {
+            <h1>Wil je écht geen @(Model.Category) meer aanbieden?</h1>
+        }
+        
+        <form method="POST" class="my-4">
+            <button asp-page-handler="Delete" class="btn btn-danger">
+                Verwijder
+            </button>
+            <button asp-page-handler="Cancel" class="btn btn-outline-secondary">
+                Annuleren
+            </button>
         </form>        
     </div>
 </div>

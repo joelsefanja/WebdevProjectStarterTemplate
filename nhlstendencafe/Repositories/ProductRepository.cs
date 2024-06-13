@@ -21,7 +21,7 @@ namespace nhlstendencafe.Repositories
             return products;
         }
 
-        public Product GetProductById(int productId)
+        public Product? GetProductById(int productId)
         {
             string sql = "SELECT * FROM Product WHERE ProductId = @ProductId";
 
@@ -39,22 +39,20 @@ namespace nhlstendencafe.Repositories
             return connection.Execute(sql, product);
         }
 
-        public int UpdateProduct(Product product)
+        public int UpdateProduct(Product? product)
         {
             string sql = @"UPDATE Product SET 
                        Name = @Name, 
-                       Price = @Price, 
-                       CategoryId = @CategoryId 
+                       Price = @Price,
+                       CategoryId = @CategoryId
                    WHERE ProductId = @ProductId";
-
-            Console.WriteLine(sql); // Debugging: Output the SQL command to the console
 
             var parameters = new
             {
                 product.Name,
                 product.Price,
-                product.CategoryId,
-                product.ProductId
+                product.ProductId,
+                categoryId = product.CategoryId
             };
 
             using var connection = GetConnection();

@@ -12,6 +12,11 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited, .btn-primary {
+  background-color: #5ab22a; !important;
+  color: white;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -40,11 +45,22 @@ body {
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #007bff; !important;
   border-color: #007bff;
 }
 
 .btn-primary:hover {
-  background-color: #0069d9;
+  background-color: #0069d9; !important;
   border-color: #0062cc;
 }
+
+.action-buttons { 
+  display: none;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.table-row:hover .action-buttons {
+  opacity: 1;
+}
+

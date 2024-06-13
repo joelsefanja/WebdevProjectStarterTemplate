@@ -8,10 +8,16 @@ namespace nhlstendencafe.Pages.Categories;
 public class Update : PageModel
 {
     public Category Category { get; set; } = null!;
+    private CategoryRepository _categoryRepository;
     
+    public Update(CategoryRepository categoryRepository)
+    {
+        _categoryRepository = categoryRepository;
+    }
+
     public void OnGet(int categoryId)
     {
-        Category = new CategoryRepository().Get(categoryId);
+        Category = _categoryRepository.Get(categoryId);
     }
 
     public IActionResult OnPost(Category category)
@@ -21,7 +27,7 @@ public class Update : PageModel
             return Page();
         }
 
-        var updatedCategory = new CategoryRepository().Update(category);
+        _categoryRepository.Update(category);
 
         return RedirectToPage(nameof(Index));
     }

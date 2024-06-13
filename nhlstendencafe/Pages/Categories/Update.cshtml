@@ -3,17 +3,17 @@
 
 <div class="row">
     <div class="col">
-        <h1>Update Category</h1>
+        <h1>Categorie bijwerken</h1>
         <form method="POST">
             <input type="hidden" asp-for="Category.CategoryId"/>
-            <div class="form-group">
-                <label asp-for="Category.Name">Name:</label>
+            <div class="form-group w-25">
+                <label asp-for="Category.Name">Naam:</label>
                 <input asp-for="Category.Name" class="form-control"/>
                 <span asp-validation-for="Category.Name"></span>
             </div>
             <div class="mt-3">
-                <button type="submit" class="btn btn-success">Update</button>
-                <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-primary">Bijwerken</button>
+                <button asp-page-handler="Cancel" class="btn btn-outline-secondary">Annuleren</button>
             </div>
         </form>
     </div>

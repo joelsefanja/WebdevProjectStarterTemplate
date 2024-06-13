@@ -10,7 +10,7 @@ namespace nhlstendencafe.Pages
     public class RegisterModel : PageModel
     {
         [BindProperty] 
-        public RegisterCredentials registerCredentials { get; set; }
+        public User user { get; set; }
         private readonly ILogger<RegisterModel> _logger;
         private string errorMessage = string.Empty; 
         
@@ -26,22 +26,13 @@ namespace nhlstendencafe.Pages
             {
                 if (!ModelState.IsValid)
                 {
-                    // Invalid input
-                    // Handle or display validation errors
                     return Page();
                 }
 
-                var newUser = new User
-                {
-                    Email = registerCredentials.Email,
-                    Password = registerCredentials.Password,
-                };
-                
                 var userRepository = new UserRepository();
-                userRepository.RegisterUser(newUser);
+                userRepository.RegisterUser(user);
 
                 // Registration successful
-                
                 return RedirectToPage("/Login");
 
           

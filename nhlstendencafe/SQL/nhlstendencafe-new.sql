@@ -2,13 +2,12 @@ CREATE DATABASE IF NOT EXISTS nhlstendencafe;
 
 USE nhlstendencafe;
 
-DROP TABLE IF EXISTS Product, Category;
-
+DROP TABLE IF EXISTS order_products, Product, Category, OrderLine, Users, Orders;
 
 CREATE TABLE Category
 (
-    CategoryId  integer AUTO_INCREMENT PRIMARY KEY,
-    Name        varchar(128) NOT NULL
+    CategoryId  INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Name        VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE Product
@@ -16,28 +15,47 @@ CREATE TABLE Product
     ProductId   INTEGER         AUTO_INCREMENT PRIMARY KEY,
     Name        NVARCHAR(128)   NOT NULL UNIQUE,
     CategoryId  INTEGER         NOT NULL,
-    Price       DECIMAL(10,2)   NOT NULL CHECK (price > 0),
+    Price       DECIMAL(10,2)   NOT NULL CHECK (Price > 0),
 
-    CONSTRAINT FK_ProductCategory FOREIGN KEY (CategoryId) REFERENCES Category (CategoryId) ON DELETE CASCADE 
+    CONSTRAINT FK_ProductCategory FOREIGN KEY (CategoryId) REFERENCES Category (CategoryId) ON DELETE CASCADE
 );
 
-create table order_line
+
+CREATE TABLE Users (
+                       Id INT AUTO_INCREMENT PRIMARY KEY,
+                       Email VARCHAR(255) NOT NULL,
+                       PasswordHash VARCHAR(255) NOT NULL,
+                       FirstName VARCHAR(255),
+                       LastName VARCHAR(255),
+                       CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+create index ProductId
+    on Product (ProductId);
+
+CREATE TABLE Orders
 (
-    OrderId      int primary key not null,
-    ProductId    int not null,
-    Amount int not null,
-    AmountPaid int not null,
-    constraint order_products_ibfk_2
-        foreign key (OrderId) references orders (Id)
+    OrderId         INT PRIMARY KEY AUTO_INCREMENT,
+    UserId          INT NOT NULL,
+    TableNumber     INT NOT NULL,
+    OrderDate       DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT FK_OrdersUser FOREIGN KEY (UserId) REFERENCES Users (Id) ON DELETE CASCADE
+);
+
+CREATE TABLE OrderLine
+(
+    OrderId         INT PRIMARY KEY NOT NULL,
+    ProductId       INT NOT NULL,
+    Quantity        INT NOT NULL,
+    AmountPaid      INT NOT NULL,
+
+    CONSTRAINT FK_OrderLineProduct FOREIGN KEY (ProductId) REFERENCES Product (ProductId),
+    CONSTRAINT FK_OrderLineOrder FOREIGN KEY (OrderId) REFERENCES Orders (OrderId) ON DELETE CASCADE
 );
 
 create index OrderId
-    on order_products (OrderId);
-
-
-create index ProductId
-    on order_products (ProductId);
-
+    on OrderLine (OrderId);
 
 INSERT INTO Category (Name) VALUES ('Frisdranken');
 INSERT INTO Category (Name) VALUES ('Bier');

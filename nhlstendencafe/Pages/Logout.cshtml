@@ -1,0 +1,13 @@
+@page
+@using Microsoft.AspNetCore.Authentication
+@model nhlstendencafe.Pages.Logout
+
+@{
+    // Clear the existing external cookie
+    await HttpContext.SignOutAsync("OberAuthentication");
+
+    // Voeg een redirect toe naar de homepagina
+    Response.Redirect("/");
+}
+
+<h1>Uitloggen</h1>

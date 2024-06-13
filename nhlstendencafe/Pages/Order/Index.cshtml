@@ -1,0 +1,60 @@
+@page
+@using nhlstendencafe.Models
+@model OrderModel
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="bestellen-tab" data-bs-toggle="pill" href="#bestellen">Bestellen</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="overzicht-tab" data-bs-toggle="pill" href="#overzicht">Overzicht</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="alles-betalen-tab" data-bs-toggle="pill" href="#alles-betalen">Alles Betalen</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="per-persoon-betalen-tab" data-bs-toggle="pill" href="#per-persoon-betalen">Per Persoon Betalen</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+        <!-- Tab voor bestellen -->
+        <div class="tab-pane fade show active" id="bestellen">
+            <div class="container mt-5">
+                <div class="row">
+                    @Html.Partial("Partials/_CategoriesPartial", Model.CategoriesWithProducts)
+                    @Html.Partial("Partials/_ProductsPartial", Model.CategoriesWithProducts)
+                    @Html.Partial("Partials/_OrderItemsPartial", Model.CategoriesWithProducts)
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab voor overzicht -->
+        <div class="tab-pane fade" id="overzicht">
+            <!-- Inhoud voor het overzicht -->
+            <h1>Overzicht</h1>
+            <!-- ... (voeg de inhoud toe voor het overzicht) -->
+        </div>
+
+        <!-- Tab voor alles betalen -->
+        <div class="tab-pane fade" id="alles-betalen">
+            <!-- Inhoud voor alles betalen -->
+            <h1>Alles Betalen</h1>
+            <!-- ... (voeg de inhoud toe voor alles betalen) -->
+        </div>
+
+        <!-- Tab voor per persoon betalen -->
+        <div class="tab-pane fade" id="per-persoon-betalen">
+            <!-- Inhoud voor per persoon betalen -->
+            <h1>Per Persoon Betalen</h1>
+            <!-- ... (voeg de inhoud toe voor per persoon betalen) -->
+        </div>
+    </div>
+</div>
+
+<script src="js/orders.js" type="text/javascript"></script>

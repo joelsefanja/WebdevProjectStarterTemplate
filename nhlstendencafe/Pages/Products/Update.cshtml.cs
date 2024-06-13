@@ -5,35 +5,40 @@ using nhlstendencafe.Repositories;
 
 namespace nhlstendencafe.Pages.Products;
 
-public class Update : PageModel
+public class Update : PageModel 
 {
-    public Product Product { get; set; } = null!;
+    private  ProductRepository _productRepository;
+
+    public IEnumerable<Category> Categories { get; set; } = null!;
+    
+    [BindProperty] public Product Product { get; set; } = new Product(); 
+
+    public Update()
+    {
+        _productRepository = new ProductRepository();
+    }
     
     public void OnGet(int productId)
     {
-        Product = new ProductRepository().GetProductById(productId);
+        _productRepository = new ProductRepository();
+        Product = _productRepository.GetProductById(productId) ?? throw new Exception("Product not found");
+        Categories = new CategoryRepository().Get();
     }
-
+    
     public IActionResult OnPost()
     {
-        // if (!ModelState.IsValid)
-        // {
-        //     return Page();
-        // }
-        
-        if (Product == null)
+        if (!ModelState.IsValid)
         {
-            return NotFound();
+            return Page();
         }
+        
+        _productRepository.UpdateProduct(Product);
 
-        var repository = new ProductRepository();
-        repository.UpdateProduct(Product);
-
-        return RedirectToPage(nameof(Index));
+        return RedirectToPage(nameof(Index), new { categoryId = Product.CategoryId });
     }
 
     public IActionResult OnPostCancel()
     {
-        return RedirectToPage(nameof(Index));
+        return RedirectToPage(nameof(Index), new { categoryId = Product.CategoryId });
     }
 }

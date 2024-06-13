@@ -7,16 +7,27 @@ namespace nhlstendencafe.Pages.Categories;
 
 public class Delete : PageModel
 {
-    public Category Category { get; set; } = null!;
-    
-    public void OnGet([FromRoute] int categoryId)
+    private readonly CategoryRepository _categoryRepository;
+
+    public Delete(CategoryRepository categoryRepository)
     {
-        Category = new CategoryRepository().Get(categoryId);
+        _categoryRepository = categoryRepository;
     }
 
-    public IActionResult OnPostDelete([FromRoute]int categoryId)
+    [BindProperty (SupportsGet = true)]
+    public string? Category { get; set; }
+
+    public bool CategoryHasProducts { get; set; }
+
+    public void OnGet(int categoryId, string category)
     {
-        bool success = new CategoryRepository().Delete(categoryId);
+        CategoryHasProducts = _categoryRepository.CategoryHasProducts(categoryId);
+        Category = category;
+    }
+
+    public IActionResult OnPostDeleteAsync(int categoryId)
+    {
+        _categoryRepository.Delete(categoryId);
         return RedirectToPage(nameof(Index));
     }
 

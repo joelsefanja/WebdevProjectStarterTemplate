@@ -11,15 +11,15 @@
 
     <form method="post" class="">
         <div class="form-group">
-            <label asp-for="@Model.loginCredentials.Email" class="form-label">E-mail</label>
-            <input asp-for="@Model.loginCredentials.Email" class="form-control"/>
-            <span asp-validation-for="@Model.loginCredentials.Email" class="text-danger"></span>
+            <label asp-for="@Model.LoginCredentials.Email" class="form-label">E-mail</label>
+            <input asp-for="@Model.LoginCredentials.Email" class="form-control"/>
+            <span asp-validation-for="@Model.LoginCredentials.Email" class="text-danger"></span>
         </div>
     
         <div class="form-group">
-            <label asp-for="@Model.loginCredentials.Password" class="form-label">Wachtwoord</label>
-            <input asp-for="@Model.loginCredentials.Password" type="password" class="form-control"/>
-            <span asp-validation-for="@Model.loginCredentials.Password" class="text-danger"></span>
+            <label asp-for="@Model.LoginCredentials.Password" class="form-label">Wachtwoord</label>
+            <input asp-for="@Model.LoginCredentials.Password" type="password" class="form-control"/>
+            <span asp-validation-for="@Model.LoginCredentials.Password" class="text-danger"></span>
         </div>
     
         <div class="row mt-4">
@@ -27,9 +27,10 @@
                 <button type="submit" class="btn btn-primary w-100">Inloggen</button>
             </div>
             <div class="col-6">
-                <a class="btn btn-outline-primary w-100" href="/Register">Geen account?
+                <a class="btn btn-outline-primary w-100" asp-page="/Register">Geen account?
                     <span class="text-decoration-underline">Registreren</span></a>
             </div>
+            
         </div>
     </form>
 </div>

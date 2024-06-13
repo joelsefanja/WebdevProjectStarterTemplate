@@ -7,11 +7,13 @@ namespace nhlstendencafe.Pages.Products;
 
 public class Delete : PageModel
 {
-    public Product product { get; set; } = null!;
+    public Product? Product { get; set; } = null!;
+    public int ProductCount { get; set; }
     
-    public void OnGet([FromRoute] int productId)
+    public void OnGet([FromRoute] int productId, [FromRoute] int productCount)
     {
-        product = new ProductRepository().GetProductById(productId);
+        this.ProductCount = productCount;
+        Product = new ProductRepository().GetProductById(productId);
     }
 
     public IActionResult OnPostDelete([FromRoute]int productId)
