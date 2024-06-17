@@ -1,4 +1,4 @@
-# Template voor zowel het project als de individiuele opdracht (NHLStenden Café).
+# NHL Stenden Cafe opdracht door Joël van Geest
 
 Benodigheden:
 * [.NET 7](https://dotnet.microsoft.com/download) of hoger, 
